@@ -10,7 +10,7 @@ router.get('/',(req,res,next) => {
 })
 
 router.post('/',(req,res,next) => {
-    res.status(code.OK).json({
+    res.status(code.CREATED).json({
         message : 'Handling Post Request to /profits'
     })
 });
@@ -29,7 +29,7 @@ routes.get('/:profitId', (req,res,next) => {
 })
 
 routes.patch('/:profitId', (req,res,next) => {
-    res.status(code.OK).json({
+    res.status(code.CREATED).json({
         message : 'Handling patch / update Request to /profits'
     })
 })
