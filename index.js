@@ -1,11 +1,11 @@
 // import {
 //     ReasonPhrases,
-//     StatusCodes,
+//     SC,
 //     getReasonPhrase,
 //     getStatusCode,
 // } from 'http-status-codes';
 
-const StatusCodes = require("http-status-codes")
+const { StatusCodes: SC} = require("http-status-codes")
 const fs = require("fs/promises");
 const express = require("express");
 const cors = require("cors");
@@ -26,9 +26,9 @@ app.get("/uang", async (req, res) => {
         await fs.mkdir(`../DocumentUangapps/data/dashboard/${year}/${month}`, { recursive: true });
     } catch (error) {
         console.log(JSON.stringify(error, null, 2));
-        return res.status(StatusCodes.BAD_REQUEST).json({ "Messages": "Error while creating folder" })
+        return res.status(SC.BAD_REQUEST).json({ "Messages": "Error while creating folder" })
     }
-    return res.status(StatusCodes.OK).json({ "Messages": "Folder created" })
+    return res.status(SC.OK).json({ "Messages": "Folder created" })
 })
 
 app.post("/uang", async (req, res) => {
@@ -36,12 +36,12 @@ app.post("/uang", async (req, res) => {
     const body = req.body;
 
     if (!body.money) {
-        return res.status(StatusCodes.NOT_FOUND).json({ "Messages": "No Data Found" });
+        return res.status(SC.NOT_FOUND).json({ "Messages": "No Data Found" });
     }
 
     try {
         const content = await fs.writeFile(`../DocumentUangapps/data/dashboard/${body.year}/${body.month}/${body.date}.json`, JSON.stringify({docID : id, data: body}, null, 2));
-        return res.status(StatusCodes.OK).json({
+        return res.status(SC.OK).json({
             "Messages": "Data has been inserted",
             "Data": body
         });
